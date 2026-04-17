@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coachella</title>
+    <link rel="stylesheet" href="web/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Group Expense Splitting</p>
+          <h1>Coachella</h1>
+          <p class="hero-copy">
+            Track shared expenses, keep the math fair to the cent, and settle up with fewer payments.
+          </p>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="content">
+          <div id="group-view" class="group-view">
+            <section class="panel summary-panel">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Selected Group</p>
+                  <h2 id="group-title">Coachella</h2>
+                </div>
+              </div>
+              <div class="summary-grid">
+                <div class="summary-card">
+                  <span class="summary-label">Members</span>
+                  <strong id="member-count">0</strong>
+                </div>
+                <div class="summary-card">
+                  <span class="summary-label">Active</span>
+                  <strong id="active-member-count">0</strong>
+                </div>
+                <div class="summary-card">
+                  <span class="summary-label">Transactions</span>
+                  <strong id="transaction-count">0</strong>
+                </div>
+              </div>
+            </section>
+
+            <div class="two-up">
+              <section class="panel">
+                <div class="section-heading">
+                  <h2>Members</h2>
+                </div>
+                <form id="member-form" class="stack compact-form">
+                  <label>
+                    <span>Member name</span>
+                    <input id="member-name-input" name="memberName" type="text" placeholder="Taylor" required />
+                  </label>
+                  <button type="submit">Add Member</button>
+                </form>
+                <div id="member-list" class="stack"></div>
+              </section>
+
+              <section class="panel">
+                <div class="section-heading">
+                  <h2>Balances</h2>
+                </div>
+                <div id="balance-list" class="stack"></div>
+              </section>
+            </div>
+
+            <div class="two-up">
+              <section class="panel">
+                <div class="section-heading">
+                  <div>
+                    <h2 id="transaction-form-title">Add Transaction</h2>
+                    <p class="muted">Store amounts as dollars in the form, converted to integer cents internally.</p>
+                  </div>
+                </div>
+                <form id="transaction-form" class="stack">
+                  <label>
+                    <span>Description</span>
+                    <input id="transaction-description" name="description" type="text" placeholder="Dinner" required />
+                  </label>
+                  <label>
+                    <span>Total amount</span>
+                    <input id="transaction-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="42.75" required />
+                  </label>
+                  <label>
+                    <span>Payer</span>
+                    <select id="transaction-payer" name="payer" required></select>
+                  </label>
+                  <label>
+                    <span>Date</span>
+                    <input id="transaction-date" name="date" type="date" required />
+                  </label>
+                  <label>
+                    <span>Split type</span>
+                    <select id="transaction-split-type" name="splitType">
+                      <option value="EVEN_ALL_ACTIVE_MEMBERS">Evenly across all active members</option>
+                      <option value="EVEN_SELECTED_MEMBERS">Evenly across selected members only</option>
+                    </select>
+                  </label>
+                  <fieldset id="participant-fieldset" class="stack hidden">
+                    <legend>Selected participants</legend>
+                    <div id="participant-checkboxes" class="checkbox-grid"></div>
+                  </fieldset>
+                  <div class="form-actions">
+                    <button type="submit" id="transaction-submit-button">Save Transaction</button>
+                    <button type="button" id="transaction-cancel-button" class="secondary hidden">Cancel Edit</button>
+                  </div>
+                </form>
+              </section>
+
+              <section class="panel">
+                <div class="section-heading">
+                  <h2>Settle Up</h2>
+                </div>
+                <div id="settlement-list" class="stack"></div>
+              </section>
+            </div>
+
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Transactions</h2>
+              </div>
+              <div id="transaction-list" class="stack"></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="src/expense-groups.js"></script>
+    <script src="web/app.js"></script>
+  </body>
+</html>
