@@ -34,10 +34,6 @@
                   <strong id="member-count">0</strong>
                 </div>
                 <div class="summary-card">
-                  <span class="summary-label">Active</span>
-                  <strong id="active-member-count">0</strong>
-                </div>
-                <div class="summary-card">
                   <span class="summary-label">Transactions</span>
                   <strong id="transaction-count">0</strong>
                 </div>
@@ -45,20 +41,6 @@
             </section>
 
             <div class="two-up">
-              <section class="panel">
-                <div class="section-heading">
-                  <h2>Members</h2>
-                </div>
-                <form id="member-form" class="stack compact-form">
-                  <label>
-                    <span>Member name</span>
-                    <input id="member-name-input" name="memberName" type="text" placeholder="Taylor" required />
-                  </label>
-                  <button type="submit">Add Member</button>
-                </form>
-                <div id="member-list" class="stack"></div>
-              </section>
-
               <section class="panel">
                 <div class="section-heading">
                   <h2>Balances</h2>
@@ -123,6 +105,20 @@
                 <h2>Transactions</h2>
               </div>
               <div id="transaction-list" class="stack"></div>
+            </section>
+
+            <section class="panel">
+              <div class="section-heading">
+                <h2>Members</h2>
+              </div>
+              <form id="member-form" class="stack compact-form">
+                <label>
+                  <span>Member name</span>
+                  <input id="member-name-input" name="memberName" type="text" placeholder="Taylor" required />
+                </label>
+                <button type="submit">Add Member</button>
+              </form>
+              <div id="member-list" class="stack"></div>
             </section>
           </div>
         </section>

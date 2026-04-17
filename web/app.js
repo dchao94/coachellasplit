@@ -5,7 +5,6 @@
     groupView: document.getElementById("group-view"),
     groupTitle: document.getElementById("group-title"),
     memberCount: document.getElementById("member-count"),
-    activeMemberCount: document.getElementById("active-member-count"),
     transactionCount: document.getElementById("transaction-count"),
     memberForm: document.getElementById("member-form"),
     memberNameInput: document.getElementById("member-name-input"),
@@ -38,7 +37,9 @@
   function attachEvents() {
     elements.memberForm.addEventListener("submit", handleMemberCreate);
     elements.transactionForm.addEventListener("submit", handleTransactionSubmit);
-    elements.transactionSplitType.addEventListener("change", renderParticipantSelector);
+    elements.transactionSplitType.addEventListener("change", () => {
+      renderParticipantSelector();
+    });
     elements.transactionCancelButton.addEventListener("click", resetTransactionForm);
   }
 
@@ -69,11 +70,9 @@
 
   function renderSummary(snapshot) {
     const members = Object.values(snapshot.members);
-    const activeMembers = members.filter((member) => member.isActive);
 
     elements.groupTitle.textContent = snapshot.name;
     elements.memberCount.textContent = String(members.length);
-    elements.activeMemberCount.textContent = String(activeMembers.length);
     elements.transactionCount.textContent = String(Object.keys(snapshot.transactions).length);
   }
 
@@ -207,8 +206,15 @@
   }
 
   function renderParticipantSelector(snapshot, selectedIds) {
+    const resolvedSnapshot = snapshot || getSelectedGroupSnapshot();
+    if (!resolvedSnapshot) {
+      elements.participantFieldset.classList.add("hidden");
+      elements.participantCheckboxes.innerHTML = "";
+      return;
+    }
+
     const splitType = elements.transactionSplitType.value;
-    const members = Object.values(snapshot.members).sort((left, right) => left.name.localeCompare(right.name));
+    const members = Object.values(resolvedSnapshot.members).sort((left, right) => left.name.localeCompare(right.name));
 
     if (splitType !== "EVEN_SELECTED_MEMBERS") {
       elements.participantFieldset.classList.add("hidden");
