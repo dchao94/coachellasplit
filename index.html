@@ -37,53 +37,51 @@
               </div>
             </section>
 
+            <section class="panel">
+              <div class="section-heading">
+                <h2 id="transaction-form-title">Add Transaction</h2>
+              </div>
+              <form id="transaction-form" class="stack">
+                <label>
+                  <span>Description</span>
+                  <input id="transaction-description" name="description" type="text" placeholder="Dinner" required />
+                </label>
+                <label>
+                  <span>Total amount</span>
+                  <input id="transaction-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="42.75" required />
+                </label>
+                <label>
+                  <span>Payer</span>
+                  <select id="transaction-payer" name="payer" required></select>
+                </label>
+                <label>
+                  <span>Date</span>
+                  <input id="transaction-date" name="date" type="date" required />
+                </label>
+                <label>
+                  <span>Split type</span>
+                  <select id="transaction-split-type" name="splitType">
+                    <option value="EVEN_ALL_ACTIVE_MEMBERS">Evenly across all active members</option>
+                    <option value="EVEN_SELECTED_MEMBERS">Evenly across selected members only</option>
+                  </select>
+                </label>
+                <fieldset id="participant-fieldset" class="stack hidden">
+                  <legend>Selected participants</legend>
+                  <div id="participant-checkboxes" class="checkbox-grid"></div>
+                </fieldset>
+                <div class="form-actions">
+                  <button type="submit" id="transaction-submit-button">Save Transaction</button>
+                  <button type="button" id="transaction-cancel-button" class="secondary hidden">Cancel Edit</button>
+                </div>
+              </form>
+            </section>
+
             <div class="two-up">
               <section class="panel">
                 <div class="section-heading">
                   <h2>Balances</h2>
                 </div>
                 <div id="balance-list" class="stack"></div>
-              </section>
-            </div>
-
-            <div class="two-up">
-              <section class="panel">
-                <div class="section-heading">
-                  <h2 id="transaction-form-title">Add Transaction</h2>
-                </div>
-                <form id="transaction-form" class="stack">
-                  <label>
-                    <span>Description</span>
-                    <input id="transaction-description" name="description" type="text" placeholder="Dinner" required />
-                  </label>
-                  <label>
-                    <span>Total amount</span>
-                    <input id="transaction-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="42.75" required />
-                  </label>
-                  <label>
-                    <span>Payer</span>
-                    <select id="transaction-payer" name="payer" required></select>
-                  </label>
-                  <label>
-                    <span>Date</span>
-                    <input id="transaction-date" name="date" type="date" required />
-                  </label>
-                  <label>
-                    <span>Split type</span>
-                    <select id="transaction-split-type" name="splitType">
-                      <option value="EVEN_ALL_ACTIVE_MEMBERS">Evenly across all active members</option>
-                      <option value="EVEN_SELECTED_MEMBERS">Evenly across selected members only</option>
-                    </select>
-                  </label>
-                  <fieldset id="participant-fieldset" class="stack hidden">
-                    <legend>Selected participants</legend>
-                    <div id="participant-checkboxes" class="checkbox-grid"></div>
-                  </fieldset>
-                  <div class="form-actions">
-                    <button type="submit" id="transaction-submit-button">Save Transaction</button>
-                    <button type="button" id="transaction-cancel-button" class="secondary hidden">Cancel Edit</button>
-                  </div>
-                </form>
               </section>
 
               <section class="panel">
