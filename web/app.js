@@ -167,13 +167,26 @@
   }
 
   function renderTransactionForm(snapshot) {
-    populatePayerOptions(snapshot);
-    renderParticipantSelector(snapshot);
+    const draft = state.editingTransactionId ? null : getDraftTransactionFormState();
+
+    if (draft) {
+      elements.transactionSplitType.value = draft.splitType || "EVEN_ALL_ACTIVE_MEMBERS";
+    }
+
+    populatePayerOptions(snapshot, draft ? draft.payerMemberId : null);
+    renderParticipantSelector(snapshot, draft ? draft.selectedParticipantIds : null);
 
     if (!state.editingTransactionId) {
       elements.transactionFormTitle.textContent = "Add Transaction";
       elements.transactionSubmitButton.textContent = "Save Transaction";
       elements.transactionCancelButton.classList.add("hidden");
+
+      if (draft) {
+        elements.transactionDescription.value = draft.description;
+        elements.transactionAmount.value = draft.amount;
+        elements.transactionDate.value = draft.date;
+      }
+
       if (!elements.transactionDate.value) {
         elements.transactionDate.value = new Date().toISOString().slice(0, 10);
       }
@@ -197,12 +210,16 @@
     renderParticipantSelector(snapshot, transaction.participantMemberIds);
   }
 
-  function populatePayerOptions(snapshot) {
+  function populatePayerOptions(snapshot, selectedPayerId) {
     const members = Object.values(snapshot.members).sort((left, right) => left.name.localeCompare(right.name));
 
     elements.transactionPayer.innerHTML = members
       .map((member) => `<option value="${member.id}">${escapeHtml(member.name)}${member.isActive ? "" : " (inactive)"}</option>`)
       .join("");
+
+    if (selectedPayerId && members.some((member) => member.id === selectedPayerId)) {
+      elements.transactionPayer.value = selectedPayerId;
+    }
   }
 
   function renderParticipantSelector(snapshot, selectedIds) {
@@ -387,6 +404,17 @@
     }
 
     return buildSnapshot(state.group);
+  }
+
+  function getDraftTransactionFormState() {
+    return {
+      description: elements.transactionDescription.value,
+      amount: elements.transactionAmount.value,
+      payerMemberId: elements.transactionPayer.value,
+      date: elements.transactionDate.value,
+      splitType: elements.transactionSplitType.value,
+      selectedParticipantIds: [...elements.participantCheckboxes.querySelectorAll("input:checked")].map((input) => input.value)
+    };
   }
 
   function createId(label) {
